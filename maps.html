@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        // <![CDATA[
+        var colour="#ff8a00";
+        var sparkles=120;
+        var x=ox=400;
+        var y=oy=300;
+        var swide=800;
+        var shigh=600;
+        var sleft=sdown=0;
+        var tiny=new Array();
+        var star=new Array();
+        var starv=new Array();
+        var starx=new Array();
+        var stary=new Array();
+        var tinyx=new Array();
+        var tinyy=new Array();
+        var tinyv=new Array();
+        
+        window.onload=function() { if (document.getElementById) {
+          var i, rats, rlef, rdow;
+          for (var i=0; i<sparkles; i++) {
+            var rats=createDiv(3, 3);
+            rats.style.visibility="hidden";
+            document.body.appendChild(tiny[i]=rats);
+            starv[i]=0;
+            tinyv[i]=0;
+            var rats=createDiv(5, 5);
+            rats.style.backgroundColor="transparent";
+            rats.style.visibility="hidden";
+            var rlef=createDiv(1, 5);
+            var rdow=createDiv(5, 1);
+            rats.appendChild(rlef);
+            rats.appendChild(rdow);
+            rlef.style.top="2px";
+            rlef.style.left="0px";
+            rdow.style.top="0px";
+            rdow.style.left="2px";
+            document.body.appendChild(star[i]=rats);
+          }
+          set_width();
+          sparkle();
+        }}
+        
+        function sparkle() {
+          var c;
+          if (x!=ox || y!=oy) {
+            ox=x;
+            oy=y;
+            for (c=0; c<sparkles; c++) if (!starv[c]) {
+              star[c].style.left=(starx[c]=x)+"px";
+              star[c].style.top=(stary[c]=y)+"px";
+              star[c].style.clip="rect(0px, 5px, 5px, 0px)";
+              star[c].style.visibility="visible";
+              starv[c]=50;
+              break;
+            }
+          }
+          for (c=0; c<sparkles; c++) {
+            if (starv[c]) update_star(c);
+            if (tinyv[c]) update_tiny(c);
+          }
+          setTimeout("sparkle()", 40);
+        }
+        
+        function update_star(i) {
+          if (--starv[i]==25) star[i].style.clip="rect(1px, 4px, 4px, 1px)";
+          if (starv[i]) {
+            stary[i]+=1+Math.random()*3;
+            if (stary[i]<shigh+sdown) {
+              star[i].style.top=stary[i]+"px";
+              starx[i]+=(i%5-2)/5;
+              star[i].style.left=starx[i]+"px";
+            }
+            else {
+              star[i].style.visibility="hidden";
+              starv[i]=0;
+              return;
+            }
+          }
+          else {
+            tinyv[i]=50;
+            tiny[i].style.top=(tinyy[i]=stary[i])+"px";
+            tiny[i].style.left=(tinyx[i]=starx[i])+"px";
+            tiny[i].style.width="2px";
+            tiny[i].style.height="2px";
+            star[i].style.visibility="hidden";
+            tiny[i].style.visibility="visible"
+          }
+        }
+        
+        function update_tiny(i) {
+          if (--tinyv[i]==25) {
+            tiny[i].style.width="1px";
+            tiny[i].style.height="1px";
+          }
+          if (tinyv[i]) {
+            tinyy[i]+=1+Math.random()*3;
+            if (tinyy[i]<shigh+sdown) {
+              tiny[i].style.top=tinyy[i]+"px";
+              tinyx[i]+=(i%5-2)/5;
+              tiny[i].style.left=tinyx[i]+"px";
+            }
+            else {
+              tiny[i].style.visibility="hidden";
+              tinyv[i]=0;
+              return;
+            }
+          }
+          else tiny[i].style.visibility="hidden";
+        }
+        
+        document.onmousemove=mouse;
+        function mouse(e) {
+          set_scroll();
+          y=(e)?e.pageY:event.y+sdown;
+          x=(e)?e.pageX:event.x+sleft;
+        }
+        
+        function set_scroll() {
+          if (typeof(self.pageYOffset)=="number") {
+            sdown=self.pageYOffset;
+            sleft=self.pageXOffset;
+          }
+          else if (document.body.scrollTop || document.body.scrollLeft) {
+            sdown=document.body.scrollTop;
+            sleft=document.body.scrollLeft;
+          }
+          else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+            sleft=document.documentElement.scrollLeft;
+            sdown=document.documentElement.scrollTop;
+          }
+          else {
+            sdown=0;
+            sleft=0;
+          }
+        }
+        
+        window.onresize=set_width;
+        function set_width() {
+          if (typeof(self.innerWidth)=="number") {
+            swide=self.innerWidth;
+            shigh=self.innerHeight;
+          }
+          else if (document.documentElement && document.documentElement.clientWidth) {
+            swide=document.documentElement.clientWidth;
+            shigh=document.documentElement.clientHeight;
+          }
+          else if (document.body.clientWidth) {
+            swide=document.body.clientWidth;
+            shigh=document.body.clientHeight;
+          }
+        }
+        
+        function createDiv(height, width) {
+          var div=document.createElement("div");
+          div.style.position="absolute";
+          div.style.height=height+"px";
+          div.style.width=width+"px";
+          div.style.overflow="hidden";
+          div.style.backgroundColor=colour;
+          return (div);
+        }
+        // ]]>
+        </script>
+        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Maps</title>
+    <link rel="icon" href="map_icon.png" type="image/x-icon">
+    <style>
+        .container {
+    width: 4.5in;
+    height: 2.8in;
+    background-color: rgb(255, 201, 216);
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    color: #ad3e63;
+    text-align: center;
+    overflow-y: scroll; /* Allow vertical scrolling */
+    scrollbar-width: thin; /* Firefox: Thin scrollbar */
+    scrollbar-color: #ad3e63 rgb(255, 201, 216); /* Thumb, Track */
+    transition: scrollbar-color 0.5s ease-in-out; /* Smooth fade transition */
+}
+         ::-webkit-scrollbar {
+    width: 7px; /* Keep scrollbar width as-is */
+    transition: opacity 0.5s ease-in-out; /* Fade transition */
+}
+::-webkit-scrollbar-thumb {
+    background: #ad3e63; /* Set thumb color to #ad3e63 */
+    border-radius: 10px; /* Keep the rounded corners */
+}
+       @font-face {
+              font-family: 'Pixellari';
+              src: url('Pixellari.woff2') format('woff2'),
+                   url('Pixellari.woff') format('woff');
+              font-weight: normal;
+              font-style: normal;
+          }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color:  rgb(255, 244, 220);
+            overflow: hidden;
+            position: relative;
+            font-family: 'Pixellari', sans-serif;
+        }
+
+        .container {
+            width: 4.5in;
+            height: 2.8in;
+            background-color: rgb(255, 201, 216);
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            color: #ad3e63;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            overflow-y: auto; /* Allow vertical scrolling if content overflows */
+            max-height: 100%; /* Ensure it respects the viewport or parent size */
+        }
+        .clickable-image {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+            position: absolute; 
+            top: 30px;
+        right: 363px;
+        z-index: 9999;
+        }
+
+        h1 {
+    font-size: .5em; /* Increase font size */
+    margin-top: 0px; /* Adjust to bring it within view */
+    text-align: left;
+    position: relative; /* Change from sticky to relative */
+    margin-left: 15px;
+    z-index: 10; /* Adjust if needed, but keep it above other elements */
+}
+
+        h2 {
+              font-size: .7em;
+              margin-top: -10px;
+              position: relative;
+              
+          }
+        
+          h3 {
+    font-size: .5em;
+    margin-top: 220px; /* Adjust the margin to control space below the map */
+    text-align: left; /* Align text left to avoid centering */
+    width: 182px;
+    position: relative; /* Enable the use of the left property */
+    left: -3px; /* Move h3 to the right by 50px */
+    text-align: center; 
+}
+h4 {
+    font-size: .5em;
+    margin-top: -60px; /* Adjust the margin to give space below the map2 */
+    text-align: center; /* Center the caption under the image */
+    width: 180px; /* Set width to match map2 */
+    position: relative;
+    left: 210px; /* Align h4 with map2, adjust as needed */
+}
+h5{
+    font-size: .5em;
+    margin-top: 220px; /* Adjust the margin to give space below the map2 */
+    text-align: center; /* Center the caption under the image */
+    width: 330px; /* Set width to match map2 */
+    position: relative;
+    left: 30px;
+}
+h6{
+    font-size: .5em;
+    margin-top: 105px; /* Adjust the margin to give space below the map2 */
+    text-align: center; /* Center the caption under the image */
+    width: 170px; /* Set width to match map2 */
+    position: relative;
+    left: 200px;
+}
+
+
+.map1 {
+    width: 200px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+    transform: rotate(5deg);
+}
+.map2 {
+    width: 200px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 220px; /* Adjust as needed */
+}
+.map3 {
+    width: 300px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 320px; /* Adjust as needed */
+    left: 80px; /* Adjust as needed */
+}
+.map4 {
+    width: 190px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 620px; /* Adjust as needed */
+    left: 8px; /* Adjust as needed */
+}
+.scrolling-img3 {
+            width: 90px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 295%; /* Position it relative to the container's height */
+            right: 35%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+            transform: rotate(20deg);
+        }
+.blue-stars {
+            width: 50px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 235%; /* Position it relative to the container's height */
+            right: 10%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+            transform: rotate(80deg);
+        }
+.bug-image{
+            width: 40px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 4%; /* Position it relative to the container's height */
+            right: 20%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+            transform: rotate(24deg);
+        }
+
+.flower-image {
+    width: 60px;
+    height: auto;
+    position: absolute; /* Keeps the image sticky inside the container */
+    top: 295%; /* Position it relative to the container's height */
+    right: 10%; /* Position it relative to the container's width */
+    z-index: 9999; /* Ensure it stays on top of other content */
+}
+.purple-twinkle {
+    width: 30px;
+    height: auto;
+    position: absolute; /* Keeps the image sticky inside the container */
+    top: 125%; /* Position it relative to the container's height */
+    right: 82%; /* Position it relative to the container's width */
+    z-index: 9999; /* Ensure it stays on top of other content */
+}
+</style> 
+
+<body>
+    <div class="container" id="content-container">
+        <img src="map_icon.png" alt="Coffee Icon" class="clickable-image" onclick="redirectToHome()">
+        <img src= "starz.png" class="scrolling-img3">
+        <img src="bluestarz.png" class="blue-stars">
+        <img src="filledpurpleflower.png" class="flower-image">
+        <img src="bug.png" class="bug-image">
+        <img src="purpletwinkle.png" class="purple-twinkle">
+
+        <img src="map1.png" class="map1">
+        <img src="map2.png" class="map2">
+        <img src="map3.png" class="map3">
+        <img src="map4.png" class="map4">
+        <h1>home</h1>
+        <h2>My Map Collection&#128205;</h2>
+        <h3>A map of the human's VCU grounds, where buildings are crafted for various activities. I bid thee study this chart well, that thou mayst know where to seek refuge and conceal thyself when the need arises.</h3>
+        <h4>A map of the third floor of the Pollak Building. This is mine favored place upon the campus, and this floor, where graphic design doth flourish. Mark well the exits, for they shall guide thee when thou must depart.</h4>
+        <h5>I have wrought a map of the library at VCU, a place where students gather to study and labor upon their assignments. Many windows doth adorn the walls, yet all are sealed with such care that I, in mine quiet contemplation, am still uncovering the best point of entry. I do believe the front door to be the most favorable, though not the spinning portals, for those are nigh impossible to pass through unnoticed.</h5>
+
+        <h6>This is the first floor of the food hall and market, a lively realm of feasting. Here doth lie an array of dining houses and an abundance of tables for gathering and eating. Merchants tend their stalls, offering meats, breads, and vegetables to all who pay. Yet beware, for this floor swells with busyness at the height of the day. Tread with care! </h6>
+
+    </div>
+</body>
+
+
+</body>
+
+<script>
+    function redirectToHome() {
+        window.location.href = "home.html"; 
+    }
+</script>
+
+</html>
