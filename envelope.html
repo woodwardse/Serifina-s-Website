@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Got Mail!</title>
+    <style>
+        {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgb(255, 244, 220);
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img id="envelopeImage" src="pixilenvelope.png" alt="Pixel Envelope" width="600">
+    </div>
+
+    <script>
+        const imageElement = document.getElementById("envelopeImage");
+        const images = [
+            "pixilenvelope.png",
+            "pixilenvelope2.png",
+            "pixilenvelope3.png",
+            "pixilenvelope4.png",
+            "pixilenvelope5.png",
+            "pixilenvelope6.png"
+        ];
+        let currentImageIndex = 0;
+
+        imageElement.addEventListener("click", () => {
+            currentImageIndex++;
+
+            if (currentImageIndex < images.length) {
+                // Update to the next image
+                imageElement.src = images[currentImageIndex];
+            } else {
+                // Redirect to new page on final image click
+                window.location.href = "fairywebsite.html";
+            }
+        });
+    </script>
+</body>
+</html>
