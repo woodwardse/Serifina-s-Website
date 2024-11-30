@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        // <![CDATA[
+        var colour="#ff8a00";
+        var sparkles=120;
+        var x=ox=400;
+        var y=oy=300;
+        var swide=800;
+        var shigh=600;
+        var sleft=sdown=0;
+        var tiny=new Array();
+        var star=new Array();
+        var starv=new Array();
+        var starx=new Array();
+        var stary=new Array();
+        var tinyx=new Array();
+        var tinyy=new Array();
+        var tinyv=new Array();
+        
+        window.onload=function() { if (document.getElementById) {
+          var i, rats, rlef, rdow;
+          for (var i=0; i<sparkles; i++) {
+            var rats=createDiv(3, 3);
+            rats.style.visibility="hidden";
+            document.body.appendChild(tiny[i]=rats);
+            starv[i]=0;
+            tinyv[i]=0;
+            var rats=createDiv(5, 5);
+            rats.style.backgroundColor="transparent";
+            rats.style.visibility="hidden";
+            var rlef=createDiv(1, 5);
+            var rdow=createDiv(5, 1);
+            rats.appendChild(rlef);
+            rats.appendChild(rdow);
+            rlef.style.top="2px";
+            rlef.style.left="0px";
+            rdow.style.top="0px";
+            rdow.style.left="2px";
+            document.body.appendChild(star[i]=rats);
+          }
+          set_width();
+          sparkle();
+        }}
+        
+        function sparkle() {
+          var c;
+          if (x!=ox || y!=oy) {
+            ox=x;
+            oy=y;
+            for (c=0; c<sparkles; c++) if (!starv[c]) {
+              star[c].style.left=(starx[c]=x)+"px";
+              star[c].style.top=(stary[c]=y)+"px";
+              star[c].style.clip="rect(0px, 5px, 5px, 0px)";
+              star[c].style.visibility="visible";
+              starv[c]=50;
+              break;
+            }
+          }
+          for (c=0; c<sparkles; c++) {
+            if (starv[c]) update_star(c);
+            if (tinyv[c]) update_tiny(c);
+          }
+          setTimeout("sparkle()", 40);
+        }
+        
+        function update_star(i) {
+          if (--starv[i]==25) star[i].style.clip="rect(1px, 4px, 4px, 1px)";
+          if (starv[i]) {
+            stary[i]+=1+Math.random()*3;
+            if (stary[i]<shigh+sdown) {
+              star[i].style.top=stary[i]+"px";
+              starx[i]+=(i%5-2)/5;
+              star[i].style.left=starx[i]+"px";
+            }
+            else {
+              star[i].style.visibility="hidden";
+              starv[i]=0;
+              return;
+            }
+          }
+          else {
+            tinyv[i]=50;
+            tiny[i].style.top=(tinyy[i]=stary[i])+"px";
+            tiny[i].style.left=(tinyx[i]=starx[i])+"px";
+            tiny[i].style.width="2px";
+            tiny[i].style.height="2px";
+            star[i].style.visibility="hidden";
+            tiny[i].style.visibility="visible"
+          }
+        }
+        
+        function update_tiny(i) {
+          if (--tinyv[i]==25) {
+            tiny[i].style.width="1px";
+            tiny[i].style.height="1px";
+          }
+          if (tinyv[i]) {
+            tinyy[i]+=1+Math.random()*3;
+            if (tinyy[i]<shigh+sdown) {
+              tiny[i].style.top=tinyy[i]+"px";
+              tinyx[i]+=(i%5-2)/5;
+              tiny[i].style.left=tinyx[i]+"px";
+            }
+            else {
+              tiny[i].style.visibility="hidden";
+              tinyv[i]=0;
+              return;
+            }
+          }
+          else tiny[i].style.visibility="hidden";
+        }
+        
+        document.onmousemove=mouse;
+        function mouse(e) {
+          set_scroll();
+          y=(e)?e.pageY:event.y+sdown;
+          x=(e)?e.pageX:event.x+sleft;
+        }
+        
+        function set_scroll() {
+          if (typeof(self.pageYOffset)=="number") {
+            sdown=self.pageYOffset;
+            sleft=self.pageXOffset;
+          }
+          else if (document.body.scrollTop || document.body.scrollLeft) {
+            sdown=document.body.scrollTop;
+            sleft=document.body.scrollLeft;
+          }
+          else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+            sleft=document.documentElement.scrollLeft;
+            sdown=document.documentElement.scrollTop;
+          }
+          else {
+            sdown=0;
+            sleft=0;
+          }
+        }
+        
+        window.onresize=set_width;
+        function set_width() {
+          if (typeof(self.innerWidth)=="number") {
+            swide=self.innerWidth;
+            shigh=self.innerHeight;
+          }
+          else if (document.documentElement && document.documentElement.clientWidth) {
+            swide=document.documentElement.clientWidth;
+            shigh=document.documentElement.clientHeight;
+          }
+          else if (document.body.clientWidth) {
+            swide=document.body.clientWidth;
+            shigh=document.body.clientHeight;
+          }
+        }
+        
+        function createDiv(height, width) {
+          var div=document.createElement("div");
+          div.style.position="absolute";
+          div.style.height=height+"px";
+          div.style.width=width+"px";
+          div.style.overflow="hidden";
+          div.style.backgroundColor=colour;
+          return (div);
+        }
+        // ]]>
+        </script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <link rel="icon" href="letter_icon.png" type="image/x-icon">
+    <style>
+        .container {
+    width: 4.5in;
+    height: 2.8in;
+    background-color: rgb(255, 201, 216);
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    color: #ad3e63;
+    text-align: center;
+    overflow-y: scroll; /* Allow vertical scrolling */
+    scrollbar-width: thin; /* Firefox: Thin scrollbar */
+    scrollbar-color: #ad3e63 rgb(255, 201, 216); /* Thumb, Track */
+    transition: scrollbar-color 0.5s ease-in-out; /* Smooth fade transition */
+}
+         ::-webkit-scrollbar {
+    width: 7px; /* Keep scrollbar width as-is */
+    transition: opacity 0.5s ease-in-out; /* Fade transition */
+}
+::-webkit-scrollbar-thumb {
+    background: #ad3e63; /* Set thumb color to #ad3e63 */
+    border-radius: 10px; /* Keep the rounded corners */
+}
+
+
+    
+         @font-face {
+              font-family: 'Pixellari';
+              src: url('Pixellari.woff2') format('woff2'),
+                   url('Pixellari.woff') format('woff');
+              font-weight: normal;
+              font-style: normal;
+          }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color:  rgb(255, 244, 220);
+            overflow: hidden;
+            position: relative;
+            cursor: url('mouse!.png') 16 16, auto;
+            font-family: 'Pixellari', sans-serif;
+        }
+
+        .container {
+            width: 4.5in;
+            height: 2.8in;
+            background-color: rgb(255, 201, 216);
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            
+            color: #ad3e63;
+            text-align: center;
+            position: relative;
+            overflow-y: scroll; /* Enable scrolling within the container */
+            
+        }
+
+      
+
+        /* Fixed large rectangles positioned down the container */
+        .fixed-large-rectangle {
+            position: absolute;
+            width: 74%;
+            background-color: #ad3e63;
+            color: rgb(255, 244, 213);
+            left: 21%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: normal; 
+            text-align: left;
+            font-size: 0.5em;
+            border-radius: 5px;
+            padding: 8px; 
+            box-sizing: border-box; 
+        }
+
+        .fixed-large-rectangle-1 {
+            top: 40px;
+            height: 50px;
+        }
+
+        .fixed-large-rectangle-2 {
+            top: 100px;
+            height: 60px;
+        }
+
+        .fixed-large-rectangle-3 {
+            top: 170px;
+            height: 190px;
+        }
+
+        .fixed-large-rectangle-4 {
+            top: 370px;
+            height: 130px;
+        }
+        .fixed-large-rectangle-5 {
+            top: 510px;
+            height: 80px;
+        }
+        .fixed-large-rectangle-6 {
+            top: 600px;
+            height: 110px;
+        }
+
+        /* Fixed clickable image inside the container */
+        .clickable-image-letter {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+            position: sticky; /* Keeps the image sticky inside the container */
+            top: 5%; /* Position it relative to the container's height */
+            right: 88%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+        }
+
+        /* Fixed h1 element */
+        h1 {
+            font-size: .5em;
+            margin-top: -50px;
+            text-align: left;
+            top: 0px;
+            position: sticky; /* Makes the h1 sticky within the container */
+    
+            margin-left: 15px; /* Adjust this value to move it further left if needed */
+            z-index: 10000; /* Make sure h1 is above other content */
+        }
+        h2 {
+            font-size: .7em;
+            margin-top: -5px;
+            text-align: center;
+            top: 20px;
+            position: absolute; /* Makes the h1 sticky within the container */
+    
+            margin-left: 70px; /* Adjust this value to move it further left if needed */
+            z-index: 10000; /* Make sure h1 is above other content */
+        }
+        .scrolling-img {
+            width: 90px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 30%; /* Position it relative to the container's height */
+            right: 80%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+        }
+        .scrolling-img2 {
+            width: 80px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 70%; /* Position it relative to the container's height */
+            right: 83%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+        }
+
+        .scrolling-img3 {
+            width: 80px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 110%; /* Position it relative to the container's height */
+            right: 80%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+        }
+        .scrolling-img4 {
+            width: 80px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 150%; /* Position it relative to the container's height */
+            right: 80%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+        }
+        .flowers{
+            width: 60px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 190%; /* Position it relative to the container's height */
+            right: 83%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+        }
+        .scroll-content {
+            margin-top: 100px;
+            height: 600px;
+        }
+
+        .yellowstars {
+            width: 90px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 220%; /* Position it relative to the container's height */
+            right: 80%; /* Position it relative to the container's width */
+            z-index: 9999; /* Ensure it stays on top of other content */
+        }
+        
+    
+
+        
+
+    </style>
+</head>
+<body>
+  
+    <div class="container" id="content-container">
+        <img src= "yellowstars.png" class="scrolling-img">
+        <img src= "purplestars.png" class="scrolling-img2">
+        <img src= "bluestars.png" class="scrolling-img3">
+        <img src= "yellowflowers.png" class="scrolling-img4">
+        <img src= "filledpurpleflower.png" class="flowers">
+        <img src= "yellowstars.png" class="yellowstars">
+
+        <!-- Fixed clickable image -->
+        <img src="letter_icon.png" alt="Map Icon" class="clickable-image-letter" onclick="redirectToHome()">
+
+        <!-- Fixed h1 element -->
+        <h1>home</h1>
+        <h2>My Blog &#128140</h2>
+
+        <!-- Fixed rectangles -->
+        <div class="fixed-large-rectangle fixed-large-rectangle-1">November 8, 2024 <br> 
+        </div>
+        <div class="fixed-large-rectangle fixed-large-rectangle-2">November 1, 2024</div>
+        <div class="fixed-large-rectangle fixed-large-rectangle-3">October 22, 2024 <br><br> The morn hath brought unease to mine heart. I returned to the Pollak Building, seeking solace amid the art-lined halls, but instead, I found a horror most dreadful—signs, plastered upon every wall, bearing a crude sketch that mimics my likeness. "Wanted," they read, with promises of reward for mine capture. Betrayal! How could the mortals I chanced upon last night expose me so? To endanger a fairy so carelessly—it wounds my spirit deeply. <br>As I lingered, eyes tracing the ink that now threatens my freedom, a sound caught my ear. Down the corridor stood the girl, her gaze upon me once more. Panic seized me, and I fluttered back, wings trembling to carry me far from her sight. But then, her voice rang out—soft, pleading. "It wasn’t me! Please! It wasn’t me!" she cried, her words chasing after me like an echo on the wind.<br>Her tone bore no malice, only desperation, yet I am torn. Dare I trust her when the world seems set against me?</div>
+        <div class="fixed-large-rectangle fixed-large-rectangle-4">October 20, 2024 <br><br> Alas! A grievous error hath befallen me this night.<br>At the stroke of three,I did, with haste, collide with two mortal souls—a girl and a boy.<br> They did not cry out in terror, but instead, Stood frozen, their gazes fixed upon me, <br>In my panic, I did drop all my carefully penned envelopes,
+            And in haste, I flew forthwith through the window
+            From whence I came.<br>I know not what will come
+            Of this chance meeting. <br>I am uncertain of what the morrow brings. </div>
+        <div class="fixed-large-rectangle fixed-large-rectangle-5">October 19, 2024 <br><br>I have this night left four notes upon the works of students,<br>Each note tucked within a card and sealed in an envelope,<br>I plan, come the morrow, to return and leave more of these tokens of admiration. </div>
+        <div class="fixed-large-rectangle fixed-large-rectangle-6">October 17, 2024 <br><br>This night, I’ve chosen to venture to the third floor of Pollak's grand estate.<br>It hath been told to me that here, the art of graphic design is taught, <br> And truly, my heart doth leap with joy at this knowledge. <br> Upon each wall, the works of students are displayed, <br> I am moved, and a desire kindles within me— <br> To leave kind notes upon their art, <br>Sharing my admiration for their noble efforts. </div>
+
+        <!-- Scrollable content -->
+        <div class="scroll-content">
+        </div>
+    </div>
+
+    <script>
+        function redirectToHome() {
+            window.location.href = "home.html"; 
+        }
+    </script>
+</body>
+</html>
