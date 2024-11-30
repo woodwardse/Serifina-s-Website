@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serifina Website</title>
+    <style>
+        @font-face {
+              font-family: 'Pixellari';
+              src: url('Pixellari.woff2') format('woff2'),
+                   url('Pixellari.woff') format('woff');
+              font-weight: normal;
+              font-style: normal;
+          }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color:rgb(255, 244, 220);
+            font-family: 'Pixellari', sans-serif;
+        }
+
+        .container {
+            width: 4.5in;
+            height: 2.8in;
+            background-color: rgb(255, 201, 216);
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            color: #be476f;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: .6em;
+            margin-bottom: 15px;
+            margin-top: 50px;
+        }
+
+        input[type="password"] {
+            width: 50%;
+            padding: 5px;
+            margin: 20px 0;
+            font-size: 0.8em;
+            font-family: 'Pixellari', sans-serif;
+            
+        }
+
+        input[type="password"]::placeholder {
+            font-size: 0.7em;
+        }
+
+        /* PNG button styling */
+        .heart-button {
+            width: 60px; /* Adjust the size of the heart image */
+            height: auto; /* Maintain aspect ratio */
+            cursor: pointer;
+            margin-top: 10px; /* Space above the heart button */
+            display: block; /* Makes the image a block element */
+            margin-left: auto; /* Center the button */
+            margin-right: auto; /* Center the button */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>What song does the wind sing at dusk?</h1>
+        <input type="password" id="password" placeholder="Enter password">
+        
+        <!-- Heart PNG as button -->
+        <img src="heart_button.png" alt="Enter" class="heart-button" onclick="redirectToHome()">
+    </div>
+
+    <script>
+        function redirectToHome() {
+            window.location.href = "home.html"; // Redirects to the home page
+        }
+    </script>
+</body>
+</html>

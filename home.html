@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+        // <![CDATA[
+        var colour="#ff8a00";
+        var sparkles=120;
+        var x=ox=400;
+        var y=oy=300;
+        var swide=800;
+        var shigh=600;
+        var sleft=sdown=0;
+        var tiny=new Array();
+        var star=new Array();
+        var starv=new Array();
+        var starx=new Array();
+        var stary=new Array();
+        var tinyx=new Array();
+        var tinyy=new Array();
+        var tinyv=new Array();
+        
+        window.onload=function() { if (document.getElementById) {
+          var i, rats, rlef, rdow;
+          for (var i=0; i<sparkles; i++) {
+            var rats=createDiv(3, 3);
+            rats.style.visibility="hidden";
+            document.body.appendChild(tiny[i]=rats);
+            starv[i]=0;
+            tinyv[i]=0;
+            var rats=createDiv(5, 5);
+            rats.style.backgroundColor="transparent";
+            rats.style.visibility="hidden";
+            var rlef=createDiv(1, 5);
+            var rdow=createDiv(5, 1);
+            rats.appendChild(rlef);
+            rats.appendChild(rdow);
+            rlef.style.top="2px";
+            rlef.style.left="0px";
+            rdow.style.top="0px";
+            rdow.style.left="2px";
+            document.body.appendChild(star[i]=rats);
+          }
+          set_width();
+          sparkle();
+        }}
+        
+        function sparkle() {
+          var c;
+          if (x!=ox || y!=oy) {
+            ox=x;
+            oy=y;
+            for (c=0; c<sparkles; c++) if (!starv[c]) {
+              star[c].style.left=(starx[c]=x)+"px";
+              star[c].style.top=(stary[c]=y)+"px";
+              star[c].style.clip="rect(0px, 5px, 5px, 0px)";
+              star[c].style.visibility="visible";
+              starv[c]=50;
+              break;
+            }
+          }
+          for (c=0; c<sparkles; c++) {
+            if (starv[c]) update_star(c);
+            if (tinyv[c]) update_tiny(c);
+          }
+          setTimeout("sparkle()", 40);
+        }
+        
+        function update_star(i) {
+          if (--starv[i]==25) star[i].style.clip="rect(1px, 4px, 4px, 1px)";
+          if (starv[i]) {
+            stary[i]+=1+Math.random()*3;
+            if (stary[i]<shigh+sdown) {
+              star[i].style.top=stary[i]+"px";
+              starx[i]+=(i%5-2)/5;
+              star[i].style.left=starx[i]+"px";
+            }
+            else {
+              star[i].style.visibility="hidden";
+              starv[i]=0;
+              return;
+            }
+          }
+          else {
+            tinyv[i]=50;
+            tiny[i].style.top=(tinyy[i]=stary[i])+"px";
+            tiny[i].style.left=(tinyx[i]=starx[i])+"px";
+            tiny[i].style.width="2px";
+            tiny[i].style.height="2px";
+            star[i].style.visibility="hidden";
+            tiny[i].style.visibility="visible"
+          }
+        }
+        
+        function update_tiny(i) {
+          if (--tinyv[i]==25) {
+            tiny[i].style.width="1px";
+            tiny[i].style.height="1px";
+          }
+          if (tinyv[i]) {
+            tinyy[i]+=1+Math.random()*3;
+            if (tinyy[i]<shigh+sdown) {
+              tiny[i].style.top=tinyy[i]+"px";
+              tinyx[i]+=(i%5-2)/5;
+              tiny[i].style.left=tinyx[i]+"px";
+            }
+            else {
+              tiny[i].style.visibility="hidden";
+              tinyv[i]=0;
+              return;
+            }
+          }
+          else tiny[i].style.visibility="hidden";
+        }
+        
+        document.onmousemove=mouse;
+        function mouse(e) {
+          set_scroll();
+          y=(e)?e.pageY:event.y+sdown;
+          x=(e)?e.pageX:event.x+sleft;
+        }
+        
+        function set_scroll() {
+          if (typeof(self.pageYOffset)=="number") {
+            sdown=self.pageYOffset;
+            sleft=self.pageXOffset;
+          }
+          else if (document.body.scrollTop || document.body.scrollLeft) {
+            sdown=document.body.scrollTop;
+            sleft=document.body.scrollLeft;
+          }
+          else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+            sleft=document.documentElement.scrollLeft;
+            sdown=document.documentElement.scrollTop;
+          }
+          else {
+            sdown=0;
+            sleft=0;
+          }
+        }
+        
+        window.onresize=set_width;
+        function set_width() {
+          if (typeof(self.innerWidth)=="number") {
+            swide=self.innerWidth;
+            shigh=self.innerHeight;
+          }
+          else if (document.documentElement && document.documentElement.clientWidth) {
+            swide=document.documentElement.clientWidth;
+            shigh=document.documentElement.clientHeight;
+          }
+          else if (document.body.clientWidth) {
+            swide=document.body.clientWidth;
+            shigh=document.body.clientHeight;
+          }
+        }
+        
+        function createDiv(height, width) {
+          var div=document.createElement("div");
+          div.style.position="absolute";
+          div.style.height=height+"px";
+          div.style.width=width+"px";
+          div.style.overflow="hidden";
+          div.style.backgroundColor=colour;
+          return (div);
+        }
+        // ]]>
+        </script>
+        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serifina's Website!</title>
+    <link rel="icon" href="purpletwinkle.png" type="image/x-icon">
+    <style>
+       @font-face {
+              font-family: 'Pixellari';
+              src: url('Pixellari.woff2') format('woff2'),
+                   url('Pixellari.woff') format('woff');
+              font-weight: normal;
+              font-style: normal;
+          }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgb(255, 244, 220);
+            overflow: hidden;
+            position: relative;
+            font-family: 'Pixellari', sans-serif;
+            
+        }
+
+        .container {
+            width: 4.5in;
+            height: 2.8in;
+            background-color: rgb(255, 201, 216);
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            color: #ad3e63;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+    font-size: .6em;
+    margin-bottom: 20px;
+    margin-top: 45px;
+    z-index: 10; /* Higher z-index so it appears above the image */
+    position: relative; /* Set h1 above absolutely positioned items */
+}
+
+        .clickable-image {
+            width: 80px;
+            height: auto;
+            cursor: pointer;
+            position: absolute;
+            top: 155px; 
+            left: 175px;
+        }
+        .clickable-image-map {
+            width: 80px;
+            height: auto;
+            cursor: pointer;
+            position: absolute;
+            top: 130px; 
+            right: 60px; 
+        }
+        .clickable-image-letter {
+            width: 80px;
+            height: auto;
+            cursor: pointer;
+            position: absolute;
+            top: 130px; 
+            right: 290px; 
+        }
+        .static-gif {
+            position: absolute;
+            top: 60px; 
+            right: 145px;
+            width: 20px; 
+            z-index: 1000; 
+}
+        .static-gif2 {
+            position: absolute;
+            top: 60px; 
+            right: 265px;
+            width: 20px; 
+            z-index: 1000; 
+}
+.scrolling-img {
+            width: 50px;
+            height: auto;
+            position: absolute; /* Keeps the image sticky inside the container */
+            top: 212px; 
+            right: 290px; 
+        }
+      
+      .bug-image {
+    width: 40px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 215px; /* Adjust as needed */
+    left: 290px; /* Adjust as needed */
+}
+.flower-image {
+    width: 40px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 185px; /* Adjust as needed */
+    left: 370px; /* Adjust as needed */
+}
+.flower-image2 {
+    width: 30px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 195px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+}
+.blue-stars {
+    width: 30px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 35px; /* Adjust as needed */
+    left: 100px; /* Adjust as needed */
+}
+.purple-twinkle {
+    width: 20px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 90px; /* Adjust as needed */
+    left: 40px; /* Adjust as needed */
+    transform: rotate(-30deg);
+}
+.purple-twinkle2 {
+    width: 20px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 120px; /* Adjust as needed */
+    left: 160px; /* Adjust as needed */
+    transform: rotate(10deg);
+}
+
+
+.buggy {
+    width: 30px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 65px; /* Adjust as needed */
+    left: 330px; /* Adjust as needed */
+    transform: rotate(30deg);
+}
+.butterfly {
+    width: 30px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 75px; /* Adjust as needed */
+    left: 310px; /* Adjust as needed */
+    transform: rotate(30deg);
+}   
+
+.shimmers {
+    width: 50px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 25px; /* Adjust as needed */
+    left: 350px; /* Adjust as needed */
+    transform: rotate(30deg);
+}   
+.yellowflower {
+    width: 40px; /* Adjust as needed */
+    height: auto;
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 40px; /* Adjust as needed */
+    transform: rotate(30deg);
+}
+        
+        
+    </style>
+</head>
+<body>
+    <div class="container" id="content-container">
+      <img src= "caterpillar.png" class="scrolling-img">
+      <img src="bug.png" alt="Bug Icon" class="bug-image">
+      <img src="filledpurpleflower.png" class="flower-image">
+      <img src="emptypurpleflower.png" class="flower-image2">
+      <img src="bluestarz.png" class="blue-stars">
+      <img src="purpletwinkle.png" class="purple-twinkle">
+      <img src="purpletwinkle.png" class="purple-twinkle2">
+      <img src="butterfly.png" class="butterfly">
+      <img src="yellowshimmers.png" class="shimmers">
+      <img src="yellowflower.png" class="yellowflower">
+      
+      
+      
+        <h1>Welcome to my <br>enchanted domain!</h1>
+        <img src="sparkle.gif" class="static-gif">
+        <img src="sparkle.gif" class="static-gif2">
+        
+        
+       
+        <img src="coffee_icon.png" alt="Coffee Icon" class="clickable-image" onclick="redirectToQA()">
+        <img src="map_icon.png" alt="Map Icon" class="clickable-image-map" onclick="redirectToMaps()">
+        <img src="letter_icon.png" alt="Map Icon" class="clickable-image-letter" onclick="redirectToBlog()">
+
+    </div>
+
+   
+  
+
+    <script>
+    
+        function redirectToQA() {
+            window.location.href = "qa.html"; 
+        }
+        function redirectToMaps() {
+            window.location.href = "maps.html"; 
+        }
+        function redirectToBlog() {
+            window.location.href = "blog.html"; 
+        }
+        const magnifier = document.getElementById("magnifier");
+
+// Clone the <body> content but exclude the magnifier
+const bodyClone = document.body.cloneNode(true);
+bodyClone.querySelector("#magnifier")?.remove();
+
+// Create a wrapper for the magnifier content
+const magnifierContent = document.createElement("div");
+magnifierContent.classList.add("magnifier-content");
+
+// Append the cloned content into the magnifier content
+while (bodyClone.firstChild) {
+  magnifierContent.appendChild(bodyClone.firstChild);
+}
+
+// Append the magnifier content to the magnifier
+magnifier.appendChild(magnifierContent);
+
+// Apply scaling and centering to magnifier content
+magnifierContent.style.transform = "scale(1.5)";
+magnifierContent.style.transformOrigin = "center center";
+magnifierContent.style.position = "absolute";
+magnifierContent.style.pointerEvents = "none";
+
+function centerMagnifierContent() {
+  const magnifierRect = magnifier.getBoundingClientRect();
+  const magnifierCenterX = magnifierRect.left + magnifierRect.width / 2;
+  const magnifierCenterY = magnifierRect.top + magnifierRect.height / 2;
+
+  const offsetX = (magnifierCenterX - window.innerWidth / 2) * -1;
+  const offsetY = (magnifierCenterY - window.innerHeight / 2) * -1;
+
+  magnifierContent.style.transform = `translate(${offsetX - 200}px, ${
+    offsetY - 100
+  }px) scale(1.5)`;
+}
+
+let isDragging = false;
+
+magnifier.addEventListener("mousedown", () => {
+  isDragging = true;
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    magnifier.style.left = `${e.pageX - magnifier.offsetWidth / 2}px`;
+    magnifier.style.top = `${e.pageY - magnifier.offsetHeight / 2}px`;
+    centerMagnifierContent();
+  }
+});
+
+centerMagnifierContent();
+
+    </script>
+</body>
+</html>
