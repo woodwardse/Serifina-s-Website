@@ -531,6 +531,7 @@
         <audio id="fairyVoice7" src="fairyvoice7.mp3"></audio>
         <audio id="fairyVoice6" src="fairyvoice6.mp3"></audio>
         <audio id="fairyVoice1" src="fairyvoice1.mp3"></audio>
+        <audio id="shootingstar" src="shootingstar.mp3"></audio>
 
     <script>
      // Function to play the audio when .audio-button2 is clicked
@@ -607,6 +608,17 @@
             }
         }
     });
+    document.querySelector('.scrolling-img5').addEventListener('click', function () {
+            const audioElement = document.getElementById('shootingstar');
+            if (audioElement) {
+            if (audioElement.paused) {
+                audioElement.play(); // Play if paused
+            } else {
+                audioElement.pause(); // Pause if playing
+            }
+        }
+    });
+
 
         // Redirect to home page when the button is clicked
         function redirectToHome() {
