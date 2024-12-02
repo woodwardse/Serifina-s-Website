@@ -252,18 +252,18 @@
             z-index: 1000; 
 }
 .scrolling-img {
-            width: 50px;
+            width: 60px;
             height: auto;
             position: absolute; /* Keeps the image sticky inside the container */
-            top: 212px; 
-            right: 290px; 
+            top: 202px; 
+            right: 280px; 
         }
       
       .bug-image {
-    width: 40px; /* Adjust as needed */
+    width: 50px; /* Adjust as needed */
     height: auto;
     position: absolute;
-    top: 215px; /* Adjust as needed */
+    top: 205px; /* Adjust as needed */
     left: 290px; /* Adjust as needed */
 }
 .flower-image {
@@ -281,22 +281,22 @@
     left: 20px; /* Adjust as needed */
 }
 .blue-stars {
-    width: 30px; /* Adjust as needed */
+    width: 45px; /* Adjust as needed */
     height: auto;
     position: absolute;
     top: 35px; /* Adjust as needed */
-    left: 100px; /* Adjust as needed */
+    left: 90px; /* Adjust as needed */
 }
 .purple-twinkle {
-    width: 20px; /* Adjust as needed */
+    width: 30px; /* Adjust as needed */
     height: auto;
     position: absolute;
     top: 90px; /* Adjust as needed */
-    left: 40px; /* Adjust as needed */
+    left: 30px; /* Adjust as needed */
     transform: rotate(-30deg);
 }
 .purple-twinkle2 {
-    width: 20px; /* Adjust as needed */
+    width: 25px; /* Adjust as needed */
     height: auto;
     position: absolute;
     top: 120px; /* Adjust as needed */
@@ -314,10 +314,10 @@
     transform: rotate(30deg);
 }
 .butterfly {
-    width: 30px; /* Adjust as needed */
+    width: 40px; /* Adjust as needed */
     height: auto;
     position: absolute;
-    top: 75px; /* Adjust as needed */
+    top: 70px; /* Adjust as needed */
     left: 310px; /* Adjust as needed */
     transform: rotate(30deg);
 }   
@@ -331,7 +331,7 @@
     transform: rotate(30deg);
 }   
 .yellowflower {
-    width: 40px; /* Adjust as needed */
+    width: 35px; /* Adjust as needed */
     height: auto;
     position: absolute;
     top: 20px; /* Adjust as needed */
@@ -344,15 +344,70 @@
 </head>
 <body>
     <div class="container" id="content-container">
-      <img src= "caterpillar.png" class="scrolling-img">
-      <img src="bug.png" alt="Bug Icon" class="bug-image">
+      <img 
+    src="bug.png" 
+    alt="Bug Image" 
+    class="bug-image" 
+    onclick="playBugSound()" 
+/>
+<audio id="bugSound" src="bugsound.mp3"></audio>
+
+<img 
+    src="butterfly.png" 
+    alt="Butterfly Image" 
+    class="butterfly" 
+    onclick="playHarpSound()" 
+/>
+<audio id="harpSound" src="harpsound.mp3"></audio>
+
+<img 
+    src="yellowshimmers.png" 
+    alt="Shimmer Image" 
+    class="shimmers" 
+    onclick="playMagicSound()" 
+/>
+<audio id="magicSound" src="magicsound2.mp3"></audio>
+
+<img 
+    src="bluestarz.png" 
+    alt="Blue Stars Image" 
+    class="blue-stars" 
+    onclick="playSoundscape()" 
+/>
+<audio id="soundscapeAudio" src="soundscape.mp3"></audio>
+
+<img 
+    src="purpletwinkle.png" 
+    alt="Purple Twinkle Image" 
+    class="purple-twinkle" 
+    onclick="playMagicSound3()" 
+/>
+<audio id="magicSound3" src="magicsound3.mp3"></audio>
+
+<img 
+    src="purpletwinkle.png" 
+    alt="Purple Twinkle Image" 
+    class="purple-twinkle2" 
+    onclick="playMagicSound3()" 
+/>
+<audio id="magicSound3" src="magicsound3.mp3"></audio>
+
+<img 
+    src="caterpillar.png" 
+    alt="Scrolling Image" 
+    class="scrolling-img" 
+    onclick="playWormSound()" 
+/>
+<audio id="wormSound" src="wormsound.mp3"></audio>
+
+
+
+
+
+
+
       <img src="filledpurpleflower.png" class="flower-image">
       <img src="emptypurpleflower.png" class="flower-image2">
-      <img src="bluestarz.png" class="blue-stars">
-      <img src="purpletwinkle.png" class="purple-twinkle">
-      <img src="purpletwinkle.png" class="purple-twinkle2">
-      <img src="butterfly.png" class="butterfly">
-      <img src="yellowshimmers.png" class="shimmers">
       <img src="yellowflower.png" class="yellowflower">
       
       
@@ -383,62 +438,40 @@
         function redirectToBlog() {
             window.location.href = "blog.html"; 
         }
-        const magnifier = document.getElementById("magnifier");
-
-// Clone the <body> content but exclude the magnifier
-const bodyClone = document.body.cloneNode(true);
-bodyClone.querySelector("#magnifier")?.remove();
-
-// Create a wrapper for the magnifier content
-const magnifierContent = document.createElement("div");
-magnifierContent.classList.add("magnifier-content");
-
-// Append the cloned content into the magnifier content
-while (bodyClone.firstChild) {
-  magnifierContent.appendChild(bodyClone.firstChild);
+        
+        function playBugSound() {
+    const audio = document.getElementById('bugSound');
+    audio.play();
+}
+function playHarpSound() {
+    const audio = document.getElementById('harpSound');
+    audio.play();
+}
+function playHarpSound() {
+    const audio = document.getElementById('harpSound');
+    audio.play();
+}
+function playMagicSound() {
+    const audio = document.getElementById('magicSound');
+    audio.play();
+}
+function playSoundscape() {
+    const audio = document.getElementById('soundscapeAudio');
+    audio.play();
+}
+function playMagicSound3() {
+    const audio = document.getElementById('magicSound3');
+    audio.play();
+}
+function playWormSound() {
+    const audio = document.getElementById('wormSound');
+    audio.play();
 }
 
-// Append the magnifier content to the magnifier
-magnifier.appendChild(magnifierContent);
 
-// Apply scaling and centering to magnifier content
-magnifierContent.style.transform = "scale(1.5)";
-magnifierContent.style.transformOrigin = "center center";
-magnifierContent.style.position = "absolute";
-magnifierContent.style.pointerEvents = "none";
 
-function centerMagnifierContent() {
-  const magnifierRect = magnifier.getBoundingClientRect();
-  const magnifierCenterX = magnifierRect.left + magnifierRect.width / 2;
-  const magnifierCenterY = magnifierRect.top + magnifierRect.height / 2;
 
-  const offsetX = (magnifierCenterX - window.innerWidth / 2) * -1;
-  const offsetY = (magnifierCenterY - window.innerHeight / 2) * -1;
 
-  magnifierContent.style.transform = `translate(${offsetX - 200}px, ${
-    offsetY - 100
-  }px) scale(1.5)`;
-}
-
-let isDragging = false;
-
-magnifier.addEventListener("mousedown", () => {
-  isDragging = true;
-});
-
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    magnifier.style.left = `${e.pageX - magnifier.offsetWidth / 2}px`;
-    magnifier.style.top = `${e.pageY - magnifier.offsetHeight / 2}px`;
-    centerMagnifierContent();
-  }
-});
-
-centerMagnifierContent();
 
     </script>
 </body>
