@@ -169,7 +169,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serifina's Website!</title>
-    <link rel="icon" href="purpletwinkle.png" type="image/x-icon">
+    <link rel="icon" href="flowericon.png" type="image/x-icon">
     <style>
        @font-face {
               font-family: 'Pixellari';
@@ -267,14 +267,14 @@
     left: 290px; /* Adjust as needed */
 }
 .flower-image {
-    width: 40px; /* Adjust as needed */
+    width: 50px; /* Adjust as needed */
     height: auto;
     position: absolute;
     top: 185px; /* Adjust as needed */
     left: 370px; /* Adjust as needed */
 }
 .flower-image2 {
-    width: 30px; /* Adjust as needed */
+    width: 40px; /* Adjust as needed */
     height: auto;
     position: absolute;
     top: 195px; /* Adjust as needed */
@@ -360,8 +360,7 @@
 />
 <audio id="harpSound" src="harpsound.mp3"></audio>
 
-<img 
-    src="yellowshimmers.png" 
+<img src="yellowshimmers.png" 
     alt="Shimmer Image" 
     class="shimmers" 
     onclick="playMagicSound()" 
@@ -400,13 +399,13 @@
 />
 <audio id="wormSound" src="wormsound.mp3"></audio>
 
+<audio id="magicsound4" src="magicsound4.mp3"></audio>
 
 
 
 
+<img src="filledpurpleflower.png" class="flower-image">
 
-
-      <img src="filledpurpleflower.png" class="flower-image">
       <img src="emptypurpleflower.png" class="flower-image2">
       <img src="yellowflower.png" class="yellowflower">
       
@@ -467,7 +466,30 @@ function playWormSound() {
     const audio = document.getElementById('wormSound');
     audio.play();
 }
+function playMagicSound() {
+    const audio = document.getElementById('magicSound4');
+    audio.play();
+}
 
+const magicSound = new Audio('magicsound6.mp3');
+
+// Add an event listener to the image
+document.querySelector('.flower-image').addEventListener('click', () => {
+    magicSound.play(); // Play the sound on click
+});
+
+const magicSound2 = new Audio('magicsound4.mp3');
+
+    // Add an event listener to the second image
+    document.querySelector('.flower-image2').addEventListener('click', () => {
+        magicSound2.play(); // Play the second sound on click
+    });
+    const shootingStarSound = new Audio('shootingstar.mp3');
+
+// Add an event listener to the yellow flower image
+document.querySelector('.yellowflower').addEventListener('click', () => {
+    shootingStarSound.play(); // Play the shooting star sound on click
+});
 
 
 
