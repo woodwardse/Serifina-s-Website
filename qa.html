@@ -532,6 +532,11 @@
         <audio id="fairyVoice6" src="fairyvoice6.mp3"></audio>
         <audio id="fairyVoice1" src="fairyvoice1.mp3"></audio>
         <audio id="shootingstar" src="shootingstar.mp3"></audio>
+        <audio id="shootingstar" src="shootingstar.mp3"></audio>
+        <audio id="magicsound2" src="magicsound2.mp3"></audio>
+        <audio id="magicsound3" src="magicsound3.mp3"></audio>
+        <audio id="magicsound4" src="magicsound4.mp3"></audio>
+        <audio id="magicsound6" src="magicsound6.mp3"></audio>
 
     <script>
      // Function to play the audio when .audio-button2 is clicked
@@ -618,6 +623,47 @@
             }
         }
     });
+    document.querySelector('.scrolling-img3').addEventListener('click', function () {
+            const audioElement = document.getElementById('magicsound2');
+            if (audioElement) {
+            if (audioElement.paused) {
+                audioElement.play(); // Play if paused
+            } else {
+                audioElement.pause(); // Pause if playing
+            }
+        }
+    });
+    document.querySelector('.scrolling-img4').addEventListener('click', function () {
+            const audioElement = document.getElementById('magicsound3');
+            if (audioElement) {
+            if (audioElement.paused) {
+                audioElement.play(); // Play if paused
+            } else {
+                audioElement.pause(); // Pause if playing
+            }
+        }
+    });
+    document.querySelector('.scrolling-img').addEventListener('click', function () {
+            const audioElement = document.getElementById('magicsound4');
+            if (audioElement) {
+            if (audioElement.paused) {
+                audioElement.play(); // Play if paused
+            } else {
+                audioElement.pause(); // Pause if playing
+            }
+        }
+    });
+    document.querySelector('.scrolling-img2').addEventListener('click', function () {
+            const audioElement = document.getElementById('magicsound6');
+            if (audioElement) {
+            if (audioElement.paused) {
+                audioElement.play(); // Play if paused
+            } else {
+                audioElement.pause(); // Pause if playing
+            }
+        }
+    });
+
 
 
         // Redirect to home page when the button is clicked
