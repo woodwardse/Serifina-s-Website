@@ -530,6 +530,7 @@
         <audio id="fairyVoice5" src="fairyvoice5.mp3"></audio>
         <audio id="fairyVoice7" src="fairyvoice7.mp3"></audio>
         <audio id="fairyVoice6" src="fairyvoice6.mp3"></audio>
+        <audio id="fairyVoice1" src="fairyvoice1.mp3"></audio>
 
     <script>
      // Function to play the audio when .audio-button2 is clicked
@@ -588,6 +589,16 @@
     });
     document.querySelector('.audio-button6').addEventListener('click', function () {
             const audioElement = document.getElementById('fairyVoice6');
+            if (audioElement) {
+            if (audioElement.paused) {
+                audioElement.play(); // Play if paused
+            } else {
+                audioElement.pause(); // Pause if playing
+            }
+        }
+    });
+    document.querySelector('.audio-button1').addEventListener('click', function () {
+            const audioElement = document.getElementById('fairyVoice1');
             if (audioElement) {
             if (audioElement.paused) {
                 audioElement.play(); // Play if paused
